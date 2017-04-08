@@ -52,6 +52,7 @@ public class CobarConfig {
     private final ReentrantLock lock;
 
     public CobarConfig() {
+        //读取xml配置信息加载到类中
         ConfigInitializer confInit = new ConfigInitializer();
         this.system = confInit.getSystem();
         this.users = confInit.getUsers();
