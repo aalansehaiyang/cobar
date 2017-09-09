@@ -40,6 +40,7 @@ public final class SystemConfig {
     private static final int DEFAULT_PARSER_COMMENT_VERSION = 50148;
     private static final int DEFAULT_SQL_RECORD_COUNT = 10;
 
+    // cobar服务器端的监听端口，默认为8066
     private int serverPort;
     private int managerPort;
     private String charset;

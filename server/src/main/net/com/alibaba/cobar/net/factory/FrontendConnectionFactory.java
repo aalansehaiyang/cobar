@@ -32,6 +32,7 @@ public abstract class FrontendConnectionFactory {
     protected int packetHeaderSize = 4;
     protected int maxPacketSize = 16 * 1024 * 1024;
     protected int writeQueueCapcity = 16;
+    // 空闲时间，8小时
     protected long idleTimeout = 8 * 3600 * 1000L;
     protected String charset = "utf8";
 

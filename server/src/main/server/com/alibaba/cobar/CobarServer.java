@@ -119,12 +119,15 @@ public class CobarServer {
         connector.start();
 
         // init dataNodes
+        // 初始化数据节点
         Map<String, MySQLDataNode> dataNodes = config.getDataNodes();
         LOGGER.info("Initialize dataNodes ...");
         for (MySQLDataNode node : dataNodes.values()) {
             node.init(1, 0);
         }
+        // 数据节点连接空闲超时定时检查
         timer.schedule(dataNodeIdleCheck(), 0L, system.getDataNodeIdleCheckPeriod());
+        // 数据节点心跳任务定时检查
         timer.schedule(dataNodeHeartbeat(), 0L, system.getDataNodeHeartbeatPeriod());
 
         // startup manager
@@ -137,12 +140,14 @@ public class CobarServer {
         LOGGER.info(manager.getName() + " is started and listening on " + manager.getPort());
 
         // startup server
+        // cobar最核心的服务进程启动
         ServerConnectionFactory sf = new ServerConnectionFactory();
         sf.setCharset(system.getCharset());
         sf.setIdleTimeout(system.getIdleTimeout());
         server = new NIOAcceptor(NAME + "Server", system.getServerPort(), sf);
         server.setProcessors(processors);
         server.start();
+        // 集群节点定时心跳任务
         timer.schedule(clusterHeartbeat(), 0L, system.getClusterHeartbeatPeriod());
 
         // server started

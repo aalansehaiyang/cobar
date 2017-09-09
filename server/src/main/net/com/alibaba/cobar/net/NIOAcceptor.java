@@ -46,6 +46,7 @@ public final class NIOAcceptor extends Thread {
     public NIOAcceptor(String name, int port, FrontendConnectionFactory factory) throws IOException {
         super.setName(name);
         this.port = port;
+        // 初始化 NIO 的ServerSocketChannel
         this.selector = Selector.open();
         this.serverChannel = ServerSocketChannel.open();
         this.serverChannel.socket().bind(new InetSocketAddress(port));
